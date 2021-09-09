@@ -22,7 +22,7 @@ data "intersight_kubernetes_cluster" "my-cluster" {
 }
 
 locals {
-    kubeconfig = yamldecode(base64decode(data.intersight_kubernetes_cluster.my-cluster.results[0].kubeconfig))
+    kubeconfig = yamldecode(base64decode(data.intersight_kubernetes_cluster.my-cluster.results[0].kube_config))
 }
 
 provider "helm" {
