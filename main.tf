@@ -4,6 +4,10 @@ terraform {
       source = "CiscoDevNet/intersight"
       version = ">=1.0.11"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.0.0"
+    }
     helm = {
       source = "hashicorp/helm"
       version = "2.3.0"
@@ -22,15 +26,15 @@ data "intersight_kubernetes_cluster" "my-cluster" {
 }
 
 locals {
-    kubeconfig = yamldecode(base64decode(data.intersight_kubernetes_cluster.my-cluster.results[0].kube_config))
+    kube_config = yamldecode(base64decode(data.intersight_kubernetes_cluster.my-cluster.results[0].kube_config))
 }
 
 provider "helm" {
   kubernetes {
-    host                   = local.kubeconfig.clusters[0].cluster.server
-    client_certificate     = base64decode(local.kubeconfig.users[0].user.client-certificate-data)
-    client_key             = base64decode(local.kubeconfig.users[0].user.client-key-data)
-    cluster_ca_certificate = base64decode(local.kubeconfig.clusters[0].cluster.certificate-authority-data)
+    host                   = local.kube_config.clusters[0].cluster.server
+    client_certificate     = base64decode(local.kube_config.users[0].user.client-certificate-data)
+    client_key             = base64decode(local.kube_config.users[0].user.client-key-data)
+    cluster_ca_certificate = base64decode(local.kube_config.clusters[0].cluster.certificate-authority-data)
   }
 }
 
