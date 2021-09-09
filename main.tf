@@ -1,3 +1,18 @@
+provider "intersight" {
+  apikey    = var.api_key
+  secretkey = var.secretkey
+  endpoint = "https://intersight.com"
+}
+
+data "intersight_kubernetes_cluster" "my-cluster" {
+    name = var.cluster_name
+}
+
+locals {
+    kube_config = yamldecode(base64decode(data.intersight_kubernetes_cluster.my-cluster.results[0].kube_config))
+}
+
+
 #__________________________________________________________
 #
 # Get Outputs from the kubeconfig Workspace
