@@ -29,6 +29,7 @@ locals {
     kube_config = yamldecode(base64decode(data.intersight_kubernetes_cluster.my-cluster.results[0].kube_config))
 }
 
+/*
 provider "helm" {
   kubernetes {
     host                   = local.kube_config.clusters[0].cluster.server
@@ -56,3 +57,4 @@ resource "helm_release" "iwo_k8s_collector" {
     value = "${var.cluster_name}_sample"
   }
 }
+*/
