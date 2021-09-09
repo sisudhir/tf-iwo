@@ -21,33 +21,6 @@ provider "helm" {
   }
 }
 
-#__________________________________________________________
-#
-# Get Outputs from the kubeconfig Workspace
-#__________________________________________________________
-
-data "terraform_remote_state" "kubeconfig" {
-  backend = "remote"
-  config = {
-    organization = var.tfc_organization
-    workspaces = {
-      name = var.ws_kubeconfig
-    }
-  }
-}
-
-locals {
-  # IKS Cluster Name
-  cluster_name = data.terraform_remote_state.kubeconfig.outputs.cluster_name
-  # Kubernetes Configuration File
-  kubeconfig = yamldecode(data.terraform_remote_state.kubeconfig.outputs.kubeconfig)
-}
-
-#______________________________________________________________________
-#
-# Deploy the Intersight Workload Optimizer Pod using the Helm Provider
-#______________________________________________________________________
-
 resource "helm_release" "iwo_k8s_collector" {
   name      = "iwok8scollector"
   namespace = "default"
