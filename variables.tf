@@ -6,11 +6,6 @@ variable "secretkey" {
   type = string
   description = "The path to your secretkey file for Intersight"
 }
-variable "api_endpoint" {
-  /*type = string
-  description = "The Intersight end point"*/
-  default = "https://www.intersight.com"
-}
 variable "cluster_name" {
   type = string
 }
