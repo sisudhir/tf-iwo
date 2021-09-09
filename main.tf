@@ -43,6 +43,7 @@ resource "helm_release" "iwo_k8s_collector" {
   namespace = "default"
   # namespace = "iwo-collector"
   chart = "https://prathjan.github.io/helm-chart/iwok8scollector-0.6.2.tgz"
+  verify = false
   #chart = "."
   set {
     name  = "iwoServerVersion"
