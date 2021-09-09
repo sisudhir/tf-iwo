@@ -6,7 +6,7 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.0.0"
+      version = "2.4.1"
     }
     helm = {
       source = "hashicorp/helm"
@@ -43,7 +43,7 @@ resource "helm_release" "iwo_k8s_collector" {
   namespace = "default"
   # namespace = "iwo-collector"
   # chart = "https://prathjan.github.io/helm-chart/iwok8scollector-0.6.2.tgz"
-  chart = "./"
+  chart = "."
   set {
     name  = "iwoServerVersion"
     value = "8.0"
