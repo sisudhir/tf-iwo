@@ -49,6 +49,6 @@ resource "helm_release" "iwo_k8s_collector" {
   }
   set {
     name  = "targetName"
-    value = "${local.cluster_name}_sample"
+    value = "${var.cluster_name}_sample"
   }
 }
